@@ -18,7 +18,9 @@ class add_user(APIView):
         if user_serializer_var.is_valid():
             user_serializer_var.save()
 
-        return Response ("Registration Succefull. Welcome To Ikigai")
+            return Response ("Registration Succefull. Welcome To Ikigai")
+
+        return Response("Registration unsuccefull. Try again")
 
         # another way of writing
         # user_detail_var = {}
