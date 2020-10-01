@@ -1,23 +1,27 @@
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+
+from .managers import CustomUserManager
 
 
-class Privacy(models.Model):
-    privacy_id = models.AutoField(primary_key = True)
-    privacy_status = models.CharField(max_length= 30, blank=True)
+class User(AbstractUser):
+    username = models.CharField(verbose_name='username', max_length=25, unique=True)
+    email = models.EmailField(verbose_name= 'Email address', unique=True)
+   
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username',]
+
+    objects = CustomUserManager()
 
     def __str__(self):
-        return str(self.privacy_id)
+        return self.email
 
 
-class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100, blank=True)
-    email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=100)
-    privacy_id = models.ForeignKey(Privacy, default=None, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.user_id)
-
-
-
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

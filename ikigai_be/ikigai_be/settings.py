@@ -40,20 +40,16 @@ INSTALLED_APPS = [
 
     #extra
     'rest_framework',
-
-    #created apps
-    'user.apps.UserConfig',
-
-    # authentication for login
     'rest_framework.authtoken',
 
+    #created apps
+    'user',
 ]
 
-REST_FRAMEWORK = {
-    
+REST_FRAMEWORK = {   
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
     ),
 }
 
@@ -136,3 +132,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+AUTH_USER_MODEL = 'user.User'
