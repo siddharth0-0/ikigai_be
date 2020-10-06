@@ -35,8 +35,7 @@ class CreatePost(CreateAPIView):
 
 
 class UpdatePost(RetrieveUpdateAPIView):
-    # TODO only owener of the post must be able to upadate
-    # pdb.set_trace()
+    
     queryset = Post.objects.all()
     serializer_class = PostCreateUpdateSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
