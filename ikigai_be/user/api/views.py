@@ -13,7 +13,7 @@ User = get_user_model()
 import pdb
 
 
-class Register(APIView):
+class UserRegister(APIView):
     def post (self,request,format = 'json'):
         
         try:
@@ -47,7 +47,7 @@ class Register(APIView):
 
 
 
-class Login(APIView):
+class UserLogin(APIView):
     def post(self,request,format='json'):
         # pdb.set_trace()
         try:
@@ -75,7 +75,7 @@ class Login(APIView):
             return Response("Login unsuccefull. Try again")
 
 
-class Logout(APIView):
+class UserLogout(APIView):
     def get(self, request):
         try:
             print(request.user)
@@ -87,7 +87,7 @@ class Logout(APIView):
                     status=status.HTTP_200_OK)
 
 
-class Profile(APIView):
+class UserProfile(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self,request):
