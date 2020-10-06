@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     #created apps
     'user',
+    'post'
 ]
 
 REST_FRAMEWORK = {   
